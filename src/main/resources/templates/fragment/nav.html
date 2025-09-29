@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+<nav>
+    <ul th:if="${username==null}">
+        <li>
+            <a href="/member/login">로그인</a>
+        </li>
+        <li>
+            <a href="/board/list">게시판</a>
+        </li>
+    </ul>
+    <ul th:if="${username!=null}">
+        <li>
+            <a href="#">로그아웃</a>
+        </li>
+        <li>
+            <a href="/board/write">글쓰기</a>
+        </li>
+        <li>
+            <a href="/board/list">게시판</a>
+        </li>
+    </ul>
+</nav>
+</body>
+</html>

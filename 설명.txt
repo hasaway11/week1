@@ -1,0 +1,46 @@
+1. 개발자가 new를 이용해서 객체를 생성하는 능동적 프로그래밍이 아니라, 스프링 프레임워크는 객체를 필요할 때
+   스프링이 생성해준다
+   - 스프링 빈(bean) : 스프링이 생성한 객체(작업하는 클래스. Singleton으로 관리)
+                      @Controller를 비롯한 어노테이션이 지정된 클래스들
+   - 값을 저장하는 객체(VO, Value Object)는 스프링이 생성하지 않는다
+
+2. Command 객체(디자인 패턴 이름)
+   - 사용자가 입력한 값을 담은 VO
+   - 스프링은 사용자가 입력한 값을 처리해준다
+     ex) username=spring&password=1234로 입력했을 때
+     username과 password를 별개의 변수로 받으려면
+          @RequestParam String username, @RequestParam String password
+     1개의 객체로 받으려면
+          @ModelAttribute Member member
+
+3. @ModelAttribute이 동작하기 위한 VO 조건
+    - 기본 생성자가 있어야 한다
+    - setter가 있어야 한다
+
+4. xml과 html의 차이
+    - html은 표준 요소와 속성을 사용
+    - xml은 사용자 정의 요소와 속성을 사용한다
+      xml의 경우 요소/속성 이름이 충돌할 수 있다 -> xml들을 구별하는 패키지에 해당하는 것이 namespace
+
+5. 스프링빈의 생명주기(lifecycle)
+    - 스프링빈의 생성은 스프링 프레임워크가 담당(개발자는 생성자를 사용하지 않는다)
+    - @PostConstruct가 지정된 메소드가 생성자 다음으로 실행된다(여기서 초기화)
+    - @PreDestory가 지정된 메소드가 객체가 파괴될 때 실행된다(여기서 뒷정리)
+
+6. 사용자 정보 저장하기
+    - 웹은 요청과 응답의 쌍으로 구성된다
+        요청을 보내면 서버가 요청을 처리해 응답하고 작업이 종료
+        새로운 요청이 들어왔을 때 이전 요청과 같은 사람이 요청한 것인지 알 수가 없다
+    - 그러면 로그인 어떻게 처리하지?
+        서버에 사용자 정보를 저장하는 객체를 만든다 -> HttpSession
+        HttpSession에 저장한 정보는 계속 유지가 된다
+        사용자가 미리 정해놓은 시간동안 HttpSession을 사용하지 않으면 세션이 파괴된다
+
+
+
+
+
+
+
+
+
