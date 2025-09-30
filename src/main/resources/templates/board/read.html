@@ -19,11 +19,48 @@
         </nav>
         <main>
             <section>
-                <h1>루트 페이지</h1>
+                <table class="table">
+                    <tr>
+                        <td>번호</td>
+                        <td th:text="${board.bno}"></td>
+                        <td>조회수</td>
+                        <td th:text="${board.readCnt}"></td>
+                    </tr>
+                    <tr>
+                        <td>글쓴이</td>
+                        <td th:text="${board.writer}"></td>
+                        <td>작성일</td>
+                        <td th:text="${board.writeDay}"></td>
+                    </tr>
+                    <tr>
+                        <td>제목</td>
+                        <td colspan="3">
+                            <input th:if="${session.username==null || session.username!=board.writer}" th:value="${board.title}" class="form-control" disabled>
+                            <input th:if="${session.username==board.writer}" th:value="${board.title}" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <div th:if="${session.username==null || session.username!=board.writer}" th:utext="${board.content}" style="height:600px; background-color: rgb(240,240,240);"></div>
+                            <div th:if="${session.username==board.writer}" id="summernote" th:utext="${board.content}"></div>
+                        </td>
+                    </tr>
+                </table>
+                <div th:if="${session.username==board.writer}" class="mt-3 mb-3">
+                    <button class="btn btn-success">변경하기</button>
+                    &nbsp;&nbsp;<button class="btn btn-danger">삭제하기</button>
+                </div>
             </section>
         </main>
         <footer th:replace="~{/fragment/footer.html}">
         </footer>
+        <script>
+            $(function() {
+                $('#summernote').summernote({
+                    height: 600
+                });
+            });
+        </script>
     </div>
 </body>
 </html>
