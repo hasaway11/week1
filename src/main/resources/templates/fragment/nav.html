@@ -7,7 +7,7 @@
 </head>
 <body>
 <nav>
-    <ul th:if="${username==null}">
+    <ul th:if="${session.username==null}">
         <li>
             <a href="/member/login">로그인</a>
         </li>
@@ -15,7 +15,7 @@
             <a href="/board/list">게시판</a>
         </li>
     </ul>
-    <ul th:if="${username!=null}">
+    <ul th:if="${session.username!=null}">
         <li>
             <a href="#">로그아웃</a>
         </li>
