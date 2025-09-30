@@ -36,7 +36,7 @@
                         <td>제목</td>
                         <td colspan="3">
                             <input th:if="${session.username==null || session.username!=board.writer}" th:value="${board.title}" class="form-control" disabled>
-                            <input th:if="${session.username==board.writer}" th:value="${board.title}" class="form-control">
+                            <input th:if="${session.username==board.writer}" th:value="${board.title}" class="form-control" id="title">
                         </td>
                     </tr>
                     <tr>
@@ -47,7 +47,7 @@
                     </tr>
                 </table>
                 <div th:if="${session.username==board.writer}" class="mt-3 mb-3">
-                    <button class="btn btn-success">변경하기</button>
+                    <button class="btn btn-success" onclick="doUpdate();">변경하기</button>
                     &nbsp;&nbsp;<button class="btn btn-danger" onclick="doRemove();">삭제하기</button>
                 </div>
             </section>
@@ -69,6 +69,22 @@
                 `;
                 document.body.innerHTML = form;
                 document.getElementById('remove-form').submit();
+            }
+
+            function doUpdate() {
+                const bno = document.getElementById('bno').innerHTML;
+                const title = document.getElementById('title').value;
+                // #summernote에 입력한 값은 jQuery로 가져온다
+                const content = $('#summernote').summernote('code');
+                const form = `
+                    <form action="/board/update" method="post" id="update-form">
+                        <input type="hidden" name="bno" value="${bno}">
+                        <input type="hidden" name="title" value="${title}">
+                        <input type="hidden" name="content" value="${content}">
+                    </form>
+                `;
+                document.body.innerHTML = form;
+                document.getElementById('update-form').submit();
             }
         </script>
     </div>

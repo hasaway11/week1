@@ -5,6 +5,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -53,6 +54,32 @@ public class BoardController {
         // 글번호가 일치한다 + 글쓴이다
         String username = (String)session.getAttribute("username");
         boards.removeIf(b->b.getBno()==bno && b.getWriter().equals(username));
+        return new ModelAndView("redirect:/board/list");
+    }
+
+    @GetMapping("/board/write")
+    public void write() {
+    }
+
+    @PostMapping("/board/write")
+    public ModelAndView write(@ModelAttribute Board board, HttpSession session) {
+        board.setBno(bno++);
+        board.setWriter((String)session.getAttribute("username"));
+        boards.add(board);
+        return new ModelAndView("redirect:/board/list");
+    }
+
+    // 번호, 제목, 내용
+    @PostMapping("/board/update")
+    public ModelAndView update(@ModelAttribute Board params, HttpSession session) {
+        String loginId = (String)session.getAttribute("username");
+        for(Board b:boards) {
+            // 글을 찾아서 로그인 사용자가 글쓴이가 확인
+            if(params.getBno()==b.getBno() && b.getWriter().equals(loginId)) {
+                b.setTitle(params.getTitle());
+                b.setContent(params.getContent());
+            }
+        }
         return new ModelAndView("redirect:/board/list");
     }
 }
