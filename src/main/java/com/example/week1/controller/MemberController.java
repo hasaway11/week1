@@ -41,4 +41,10 @@ public class MemberController {
         return new ModelAndView("redirect:/?error");
     }
 
+    @PostMapping("/member/logout")
+    public ModelAndView logout(HttpSession session) {
+        session.invalidate();
+        return new ModelAndView("redirect:/");
+    }
+
 }

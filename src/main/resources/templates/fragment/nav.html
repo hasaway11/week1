@@ -17,7 +17,7 @@
     </ul>
     <ul th:if="${session.username!=null}">
         <li>
-            <a href="#">로그아웃</a>
+            <a href="#" onclick="doLogout();">로그아웃</a>
         </li>
         <li>
             <a href="/board/write">글쓰기</a>
@@ -27,5 +27,27 @@
         </li>
     </ul>
 </nav>
+<script>
+    function doLogout() {
+        // 동적으로 폼만들기 : 폼 만든다 -> html에 붙인다 -> form을 선택해서 submit
+        const form = `<form action="/member/logout" method="post" id="logout-form"></form>`;
+        document.body.innerHTML = form;
+        document.getElementById('logout-form').submit();
+    }
+</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
