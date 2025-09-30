@@ -80,7 +80,7 @@
                     <form action="/board/update" method="post" id="update-form">
                         <input type="hidden" name="bno" value="${bno}">
                         <input type="hidden" name="title" value="${title}">
-                        <input type="hidden" name="content" value="${content}">
+                        <textarea name="content" hidden>${content}</textarea>
                     </form>
                 `;
                 document.body.innerHTML = form;

@@ -63,6 +63,7 @@ public class BoardController {
 
     @PostMapping("/board/write")
     public ModelAndView write(@ModelAttribute Board board, HttpSession session) {
+        System.out.println(board);
         board.setBno(bno++);
         board.setWriter((String)session.getAttribute("username"));
         boards.add(board);
@@ -72,6 +73,7 @@ public class BoardController {
     // 번호, 제목, 내용
     @PostMapping("/board/update")
     public ModelAndView update(@ModelAttribute Board params, HttpSession session) {
+        System.out.println(params);
         String loginId = (String)session.getAttribute("username");
         for(Board b:boards) {
             // 글을 찾아서 로그인 사용자가 글쓴이가 확인
