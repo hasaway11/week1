@@ -5,6 +5,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -45,5 +46,13 @@ public class BoardController {
             }
         }
         return new ModelAndView("redirect:/board/list?404");
+    }
+
+    @PostMapping("/board/remove")
+    public ModelAndView remove(@RequestParam long bno, HttpSession session) {
+        // 글번호가 일치한다 + 글쓴이다
+        String username = (String)session.getAttribute("username");
+        boards.removeIf(b->b.getBno()==bno && b.getWriter().equals(username));
+        return new ModelAndView("redirect:/board/list");
     }
 }
