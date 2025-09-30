@@ -46,5 +46,4 @@ public class MemberController {
         session.invalidate();
         return new ModelAndView("redirect:/");
     }
-
 }

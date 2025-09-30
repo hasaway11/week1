@@ -5,6 +5,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
@@ -34,5 +35,15 @@ public class BoardController {
     @GetMapping("/board/list")
     public ModelAndView list() {
         return new ModelAndView("board/list").addObject("boards", boards);
+    }
+
+    @GetMapping("/board/read")
+    public ModelAndView read(@RequestParam long bno) {
+        for(Board b:boards) {
+            if(bno==b.getBno()) {
+                return new ModelAndView("board/read").addObject("board", b);
+            }
+        }
+        return new ModelAndView("redirect:/board/list?404");
     }
 }
